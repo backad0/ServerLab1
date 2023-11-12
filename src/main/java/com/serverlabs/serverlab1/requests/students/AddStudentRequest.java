@@ -1,11 +1,13 @@
 package com.serverlabs.serverlab1.requests.students;
 
+import com.serverlabs.serverlab1.entities.StudentStatus;
+
 public class AddStudentRequest {
     private String name;
     private long idGroup;
-    private String status;
+    private StudentStatus status;
 
-    public AddStudentRequest(String name, long idGroup, String status) {
+    public AddStudentRequest(String name, long idGroup, StudentStatus status) {
         this.name = name;
         this.idGroup = idGroup;
         this.status = status;
@@ -19,7 +21,7 @@ public class AddStudentRequest {
         return idGroup;
     }
 
-    public String getStatus() {
+    public StudentStatus getStatus() {
         return status;
     }
 

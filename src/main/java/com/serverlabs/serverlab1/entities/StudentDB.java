@@ -6,9 +6,9 @@ public class StudentDB {
     private Long id;
     private String name;
     private Long groupId;
-    private String status;
+    private StudentStatus status;
 
-    public StudentDB(Long id, String name, Long groupId, String status) {
+    public StudentDB(Long id, String name, Long groupId, StudentStatus status) {
         this.id = id;
         this.name = name;
         this.groupId = groupId;
@@ -27,7 +27,7 @@ public class StudentDB {
         return groupId;
     }
 
-    public String getStatus() {
+    public StudentStatus getStatus() {
         return status;
     }
 

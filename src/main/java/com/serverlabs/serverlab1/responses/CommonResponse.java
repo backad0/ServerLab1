@@ -17,6 +17,14 @@ public class CommonResponse<T> {
         errors = null;
     }
 
+    public CommonResponse(int errorCode, String errorMassage){
+        data = null;
+        isOk = false;
+        this.errorCode = errorCode;
+        this.errorMassage = errorMassage;
+        this.errors = null;
+    }
+
     public CommonResponse(int errorCode, String errorMassage, List<String> errors) {
         this.errorCode = errorCode;
         this.errorMassage = errorMassage;

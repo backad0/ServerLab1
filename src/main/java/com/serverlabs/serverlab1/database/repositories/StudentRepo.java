@@ -5,6 +5,7 @@ import com.serverlabs.serverlab1.database.Database;
 import com.serverlabs.serverlab1.database.IStudentRepo;
 import com.serverlabs.serverlab1.entities.Student;
 import com.serverlabs.serverlab1.entities.StudentDB;
+import com.serverlabs.serverlab1.entities.StudentStatus;
 import com.serverlabs.serverlab1.excepcions.RepositoryException;
 
 import java.util.Collections;
@@ -20,7 +21,7 @@ public class StudentRepo implements IStudentRepo {
     }
 
     @Override
-    public long addStudent(StudentDB student) throws RepositoryException {
+    public long addStudent(String name, long groupId, StudentStatus status) throws RepositoryException {
         Map<Long, StudentDB> studentMap = db.getStudentsTable();
         long key;
         if (studentMap.keySet().isEmpty()) {
@@ -28,7 +29,7 @@ public class StudentRepo implements IStudentRepo {
         } else {
             key = Collections.max(studentMap.keySet()) + 1;
         }
-        studentMap.put(key, student);
+        studentMap.put(key, new StudentDB(key, name, groupId, status));
         return key;
     }
 

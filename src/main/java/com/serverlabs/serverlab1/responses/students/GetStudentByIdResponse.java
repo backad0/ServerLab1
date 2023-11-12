@@ -1,34 +1,16 @@
 package com.serverlabs.serverlab1.responses.students;
 
 
+import com.serverlabs.serverlab1.entities.Student;
+import com.serverlabs.serverlab1.entities.StudentDB;
 import com.serverlabs.serverlab1.entities.StudentStatus;
 
 public class GetStudentByIdResponse {
-    private long id;
-    private String name;
-    private long idGroup;
-    private StudentStatus status;
+    private StudentDB student;
 
-    public GetStudentByIdResponse(long idStudent, String name, long idGroup, StudentStatus status) {
-        this.id = idStudent;
-        this.name = name;
-        this.idGroup = idGroup;
-        this.status = status;
+    public GetStudentByIdResponse(StudentDB student) {
+        this.student = student;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getIdGroup() {
-        return idGroup;
-    }
-
-    public StudentStatus getStatus() {
-        return status;
-    }
+    public StudentDB getStudent() {return student;}
 }
