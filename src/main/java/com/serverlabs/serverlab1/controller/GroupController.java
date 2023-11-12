@@ -10,6 +10,7 @@ import com.serverlabs.serverlab1.responses.CommonResponse;
 import com.serverlabs.serverlab1.responses.ResponseEntity;
 import com.serverlabs.serverlab1.responses.groups.AddGroupResponse;
 import com.serverlabs.serverlab1.responses.groups.GetGroupByIdResponse;
+import com.serverlabs.serverlab1.services.GroupService;
 import com.serverlabs.serverlab1.services.validator.groups.AddGroupValidator;
 import com.serverlabs.serverlab1.services.validator.groups.DeleteGroupValidator;
 import com.serverlabs.serverlab1.services.validator.groups.EditGroupValidator;
@@ -19,17 +20,17 @@ import com.serverlabs.serverlab1.services.validator.groups.GetGroupByIdValidator
 import java.util.List;
 
 public class GroupController {
-    private final GroupRepo repo;
+    private final GroupService groupService;
 
     private final AddGroupValidator addGroupValidator;
     private final DeleteGroupValidator deleteGroupValidator;
     private final EditGroupValidator editGroupValidator;
     private final GetGroupByIdValidator getGroupByIdValidator;
 
-    public GroupController(GroupRepo repo, AddGroupValidator addGroupValidator,
+    public GroupController(GroupService groupService, AddGroupValidator addGroupValidator,
                            DeleteGroupValidator deleteGroupValidator, EditGroupValidator editGroupValidator,
                            GetGroupByIdValidator getGroupByIdValidator) {
-        this.repo = repo;
+        this.groupService = groupService;
         this.addGroupValidator = addGroupValidator;
         this.deleteGroupValidator = deleteGroupValidator;
         this.editGroupValidator = editGroupValidator;
@@ -42,7 +43,7 @@ public class GroupController {
         List<String> errors = addGroupValidator.validator(request);
         if (errors.isEmpty()) {
             try {
-                commonResponse = new CommonResponse<>(new AddGroupResponse(repo.addGroup(request.getName())));
+                commonResponse = new CommonResponse<>(new AddGroupResponse(groupService.addGroup(request.getName())));
             } catch (Exception e) {
                 status = 500;
                 commonResponse = new CommonResponse<>(1, e.getMessage());
@@ -60,7 +61,7 @@ public class GroupController {
         List<String> errors = deleteGroupValidator.validator(request);
         if (errors.isEmpty()) {
             try {
-                repo.deleteGroup(request.getId());
+                groupService.deleteGroup(request.getId());
                 commonResponse = new CommonResponse<>(null);
             } catch (Exception e) {
                 status = 500;
@@ -79,7 +80,7 @@ public class GroupController {
         List<String> errors = editGroupValidator.validator(request);
         if (errors.isEmpty()) {
             try {
-                repo.editGroup(request.getGroup());
+                groupService.editGroup(request.getGroup());
                 commonResponse = new CommonResponse<>(null);
             } catch (Exception e) {
                 status = 500;
@@ -98,7 +99,7 @@ public class GroupController {
         List<String> errors = getGroupByIdValidator.validator(request);
         if (errors.isEmpty()) {
             try {
-                commonResponse = new CommonResponse<>(new GetGroupByIdResponse(repo.getGroupById(request.getId())));
+                commonResponse = new CommonResponse<>(new GetGroupByIdResponse(groupService.getGroup(request.getId())));
             } catch (Exception e) {
                 status = 500;
                 commonResponse = new CommonResponse<>(1, e.getMessage());
