@@ -1,19 +1,15 @@
 package com.serverlabs.serverlab1.responses.groups;
 
+import com.serverlabs.serverlab1.entities.Group;
+
 public class GetGroupByIdResponse {
-    private long id;
-    private String name;
+    private Group group;
 
-    public GetGroupByIdResponse(long id, String name) {
-        this.id = id;
-        this.name = name;
+    public GetGroupByIdResponse(Group group) {
+        this.group = group;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+    public Group getGroup() {
+        return group;
     }
 }

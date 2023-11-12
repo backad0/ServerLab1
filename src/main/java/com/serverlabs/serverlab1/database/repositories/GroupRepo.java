@@ -17,14 +17,14 @@ public class GroupRepo implements IGroupRepo {
     }
 
     @Override
-    public long addGroup(Group group) throws RepositoryException {
+    public long addGroup(String name) throws RepositoryException {
         Map<Long, Group> groupMap = db.getGroupsTable();
         long key;
         if (groupMap.keySet().isEmpty()){
             key = 0;
         } else {
             key = Collections.max(groupMap.keySet()) + 1;
-        } groupMap.put(key, group);
+        } groupMap.put(key, new Group(key, name));
         return key;
     }
 

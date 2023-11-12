@@ -1,13 +1,13 @@
 package com.serverlabs.serverlab1.responses.groups;
 
 public class AddGroupResponse {
-    private String name;
+    private long id;
 
-    public AddGroupResponse(String name) {
-        this.name = name;
+    public AddGroupResponse(long id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public long getId() {
+        return id;
     }
 }

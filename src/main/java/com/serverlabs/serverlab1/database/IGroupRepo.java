@@ -5,7 +5,7 @@ import com.serverlabs.serverlab1.entities.Group;
 import com.serverlabs.serverlab1.excepcions.RepositoryException;
 
 public interface IGroupRepo {
-    long addGroup(Group group) throws RepositoryException;
+    long addGroup(String name) throws RepositoryException;
 
     void deleteGroup(long id) throws RepositoryException;
 

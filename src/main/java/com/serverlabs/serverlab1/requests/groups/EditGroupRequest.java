@@ -1,19 +1,15 @@
 package com.serverlabs.serverlab1.requests.groups;
 
+import com.serverlabs.serverlab1.entities.Group;
+
 public class EditGroupRequest {
-    private long id;
-    private String name;
+    private Group group;
 
-    public EditGroupRequest(long idGroup, String nameGroup) {
-        this.id = idGroup;
-        this.name = nameGroup;
+    public EditGroupRequest(Group group) {
+        this.group = group;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+    public Group getGroup() {
+        return group;
     }
 }
