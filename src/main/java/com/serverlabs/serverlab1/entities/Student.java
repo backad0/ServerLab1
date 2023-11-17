@@ -1,5 +1,8 @@
 package com.serverlabs.serverlab1.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Student {
@@ -8,7 +11,11 @@ public class Student {
     private Group group;
     private StudentStatus status;
 
-    public Student(Long id, String name, Group group, StudentStatus status) {
+    @JsonCreator
+    public Student(@JsonProperty(value = "id")Long id,
+                   @JsonProperty(value = "name")String name,
+                   @JsonProperty(value = "group")Group group,
+                   @JsonProperty(value = "status")StudentStatus status) {
         this.id = id;
         this.name = name;
         this.group = group;

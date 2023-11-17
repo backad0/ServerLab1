@@ -43,10 +43,10 @@ public class StudentController {
                         new AddStudentResponse(studentService.addStudent(request.getName(), request.getIdGroup(), request.getStatus())));
             } catch (Exception e) {
                 status = 500;
-                commonResponse = new CommonResponse<>(1, e.getMessage());
+                commonResponse = new CommonResponse<>(2, e.getMessage());
             }
         } else {
-            commonResponse = new CommonResponse<>(0, "Validation error", errors);
+            commonResponse = new CommonResponse<>(1, "Validation error", errors);
             status = 422;
         }
         return new ResponseEntity<>(commonResponse, status);
@@ -62,10 +62,10 @@ public class StudentController {
                 commonResponse = new CommonResponse<>(null);
             } catch (Exception e) {
                 status = 500;
-                commonResponse = new CommonResponse<>(1, e.getMessage());
+                commonResponse = new CommonResponse<>(2, e.getMessage());
             }
         } else {
-            commonResponse = new CommonResponse<>(0, "Validation error", errors);
+            commonResponse = new CommonResponse<>(1, "Validation error", errors);
             status = 422;
         }
         return new ResponseEntity<>(commonResponse, status);
@@ -81,10 +81,10 @@ public class StudentController {
                 commonResponse = new CommonResponse<>(null);
             } catch (Exception e) {
                 status = 500;
-                commonResponse = new CommonResponse<>(1, e.getMessage());
+                commonResponse = new CommonResponse<>(2, e.getMessage());
             }
         } else {
-            commonResponse = new CommonResponse<>(0, "Validation error", errors);
+            commonResponse = new CommonResponse<>(1, "Validation error", errors);
             status = 422;
         }
         return new ResponseEntity<>(commonResponse, status);
@@ -99,10 +99,10 @@ public class StudentController {
                 commonResponse = new CommonResponse<>(studentService.getStudentsByGroup(request.getId()));
             } catch (Exception e) {
                 status = 500;
-                commonResponse = new CommonResponse<>(1, e.getMessage());
+                commonResponse = new CommonResponse<>(2, e.getMessage());
             }
         } else {
-            commonResponse = new CommonResponse<>(0, "Validation error", errors);
+            commonResponse = new CommonResponse<>(1, "Validation error", errors);
             status = 422;
         }
         return new ResponseEntity<>(commonResponse, status);
@@ -117,10 +117,10 @@ public class StudentController {
                 commonResponse = new CommonResponse<>(new GetStudentByIdResponse(studentService.getStudent(request.getId())));
             } catch (Exception e) {
                 status = 500;
-                commonResponse = new CommonResponse<>(1, e.getMessage());
+                commonResponse = new CommonResponse<>(2, e.getMessage());
             }
         } else {
-            commonResponse = new CommonResponse<>(0, "Validation error", errors);
+            commonResponse = new CommonResponse<>(1, "Validation error", errors);
             status = 422;
         }
         return new ResponseEntity<>(commonResponse, status);

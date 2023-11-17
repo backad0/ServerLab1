@@ -1,9 +1,13 @@
 package com.serverlabs.serverlab1.requests.students;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class GetStudentsByGroupRequest {
     private long id;
 
-    public GetStudentsByGroupRequest(long idGroup) {
+    @JsonCreator
+    public GetStudentsByGroupRequest(@JsonProperty(value = "id")long idGroup) {
         this.id = idGroup;
     }
 

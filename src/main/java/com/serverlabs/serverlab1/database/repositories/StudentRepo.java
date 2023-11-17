@@ -11,13 +11,16 @@ import com.serverlabs.serverlab1.excepcions.RepositoryException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StudentRepo implements IStudentRepo {
     private Database db;
+    long counter;
 
     public StudentRepo(Database db) {
         this.db = db;
+        counter = 0;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class StudentRepo implements IStudentRepo {
         if (studentMap.keySet().isEmpty()) {
             key = 0;
         } else {
-            key = Collections.max(studentMap.keySet()) + 1;
+            key = ++counter;
         }
         studentMap.put(key, new StudentDB(key, name, groupId, status));
         return key;
@@ -35,19 +38,19 @@ public class StudentRepo implements IStudentRepo {
 
     @Override
     public void deleteStudent(long id) throws RepositoryException {
-        if (!db.getStudentsTable().containsKey(id)) return;
+        if (!db.getStudentsTable().containsKey(id)) throw new RepositoryException("Not contains exact key");
         db.getStudentsTable().remove(id);
     }
 
     @Override
     public void editStudent(StudentDB student) throws RepositoryException {
-        if (!db.getStudentsTable().containsKey(student.getId())) return;
+        if (!db.getStudentsTable().containsKey(student.getId())) throw new RepositoryException("Not contains exact student");
         db.getStudentsTable().replace(student.getId(), student);
     }
 
     @Override
     public StudentDB getStudentById(long id) throws RepositoryException {
-        if (!db.getStudentsTable().containsKey(id)) throw new IllegalArgumentException();
+        if (!db.getStudentsTable().containsKey(id)) throw new RepositoryException("Not contains exact key");
         return db.getStudentsTable().get(id);
     }
 

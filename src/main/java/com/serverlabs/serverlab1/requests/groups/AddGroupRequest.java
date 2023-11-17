@@ -1,9 +1,13 @@
 package com.serverlabs.serverlab1.requests.groups;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AddGroupRequest {
     private String name;
 
-    public AddGroupRequest(String nameGroup, long idGroup) {
+    @JsonCreator
+    public AddGroupRequest(@JsonProperty(value = "nameGroup") String nameGroup) {
         this.name = nameGroup;
     }
 

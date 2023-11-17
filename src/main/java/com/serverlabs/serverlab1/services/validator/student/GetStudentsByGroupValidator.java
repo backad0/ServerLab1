@@ -10,6 +10,10 @@ import java.util.List;
 public class GetStudentsByGroupValidator implements IValidator<GetStudentsByGroupRequest> {
     private ValidatorId idV;
 
+    public GetStudentsByGroupValidator() {
+        idV = new ValidatorId();
+    }
+
     @Override
     public List<String> validator(GetStudentsByGroupRequest request){
         List<String> errors = new ArrayList<>();

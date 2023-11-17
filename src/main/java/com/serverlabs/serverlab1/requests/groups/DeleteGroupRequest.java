@@ -1,9 +1,13 @@
 package com.serverlabs.serverlab1.requests.groups;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DeleteGroupRequest {
     private long id;
 
-    public DeleteGroupRequest(long idGroup) {
+    @JsonCreator
+    public DeleteGroupRequest(@JsonProperty(value = "id")long idGroup) {
         this.id = idGroup;
     }
 

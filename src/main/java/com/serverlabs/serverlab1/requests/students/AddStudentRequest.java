@@ -1,5 +1,7 @@
 package com.serverlabs.serverlab1.requests.students;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.serverlabs.serverlab1.entities.StudentStatus;
 
 public class AddStudentRequest {
@@ -7,7 +9,10 @@ public class AddStudentRequest {
     private long idGroup;
     private StudentStatus status;
 
-    public AddStudentRequest(String name, long idGroup, StudentStatus status) {
+    @JsonCreator
+    public AddStudentRequest(@JsonProperty(value = "name")String name,
+                             @JsonProperty(value = "idGroup") long idGroup,
+                             @JsonProperty(value = "status") StudentStatus status) {
         this.name = name;
         this.idGroup = idGroup;
         this.status = status;
@@ -26,3 +31,4 @@ public class AddStudentRequest {
     }
 
 }
+

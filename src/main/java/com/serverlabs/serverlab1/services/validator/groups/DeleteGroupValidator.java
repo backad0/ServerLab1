@@ -11,6 +11,10 @@ import java.util.List;
 public class DeleteGroupValidator implements IValidator<DeleteGroupRequest> {
     private ValidatorId idV;
 
+    public DeleteGroupValidator() {
+        idV = new ValidatorId();
+    }
+
     @Override
     public List<String> validator(DeleteGroupRequest request){
         List<String> errors = new ArrayList<>();

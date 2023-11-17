@@ -11,6 +11,10 @@ import java.util.List;
 public class GetStudentByIdValidator implements IValidator<GetStudentByIdRequest> {
     private ValidatorId idV;
 
+    public GetStudentByIdValidator() {
+        idV = new ValidatorId();
+    }
+
     @Override
     public List<String> validator(GetStudentByIdRequest request){
         List<String> errors = new ArrayList<>();

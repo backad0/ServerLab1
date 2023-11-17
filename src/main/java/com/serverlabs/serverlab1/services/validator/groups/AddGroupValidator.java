@@ -13,11 +13,14 @@ public class AddGroupValidator implements IValidator<AddGroupRequest> {
     private ValidatorString stringV;
     private ValidatorId idV;
 
+    public AddGroupValidator() {
+        stringV = new ValidatorString();
+        idV = new ValidatorId();
+    }
+
     @Override
     public List<String> validator(AddGroupRequest request){
         List<String> errors = new ArrayList<>();
-
-        idV.isNotNegative(request.getId(), errors, "groupId");
 
         stringV.isNotNull(request.getName(), errors, "groupName");
         stringV.isNotEmpty(request.getName(), errors, "groupName");

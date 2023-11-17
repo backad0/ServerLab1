@@ -12,8 +12,13 @@ public class AddStudentValidator implements IValidator<AddStudentRequest> {
     private ValidatorString stringV;
     private ValidatorId idV;
 
+    public AddStudentValidator() {
+        stringV = new ValidatorString();
+        idV = new ValidatorId();
+    }
+
     @Override
-    public List<String> validator(AddStudentRequest request){
+    public List<String> validator(AddStudentRequest request) {
         List<String> errors = new ArrayList<>();
 
         stringV.isNotNull(request.getName(), errors, "name");
@@ -21,10 +26,6 @@ public class AddStudentValidator implements IValidator<AddStudentRequest> {
         stringV.isNotOverflow(request.getName(), errors, "name", 255);
 
         idV.isNotNegative(request.getIdGroup(), errors, "idGroup");
-
-        stringV.isNotNull(request.getStatus(), errors, "status");
-        stringV.isNotEmpty(request.getStatus(), errors, "status");
-        stringV.isNotOverflow(request.getStatus(), errors, "status", 255);
 
         return errors;
     }

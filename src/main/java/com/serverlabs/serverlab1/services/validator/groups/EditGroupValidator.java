@@ -13,15 +13,20 @@ public class EditGroupValidator implements IValidator<EditGroupRequest> {
     private ValidatorString stringV;
     private ValidatorId idV;
 
+    public EditGroupValidator() {
+        stringV = new ValidatorString();
+        idV = new ValidatorId();
+    }
+
     @Override
     public List<String> validator(EditGroupRequest request){
         List<String> errors = new ArrayList<>();
 
-        idV.isNotNegative(request.getId(), errors, "groupId");
+        idV.isNotNegative(request.getGroup().getId(), errors, "groupId");
 
-        stringV.isNotNull(request.getName(), errors, "groupName");
-        stringV.isNotEmpty(request.getName(), errors, "groupName");
-        stringV.isNotOverflow(request.getName(), errors, "groupName", 255);
+        stringV.isNotNull(request.getGroup().getName(), errors, "groupName");
+        stringV.isNotEmpty(request.getGroup().getName(), errors, "groupName");
+        stringV.isNotOverflow(request.getGroup().getName(), errors, "groupName", 255);
 
         return errors;
     }

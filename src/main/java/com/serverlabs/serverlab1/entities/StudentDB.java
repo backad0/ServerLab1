@@ -1,5 +1,7 @@
 package com.serverlabs.serverlab1.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.util.Objects;
 
 public class StudentDB {
@@ -8,6 +10,7 @@ public class StudentDB {
     private Long groupId;
     private StudentStatus status;
 
+    @JsonCreator
     public StudentDB(Long id, String name, Long groupId, StudentStatus status) {
         this.id = id;
         this.name = name;

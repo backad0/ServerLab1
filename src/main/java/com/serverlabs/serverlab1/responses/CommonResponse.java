@@ -1,5 +1,8 @@
 package com.serverlabs.serverlab1.responses;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class CommonResponse<T> {
@@ -9,7 +12,8 @@ public class CommonResponse<T> {
     private List<String> errors;
     private T data;
 
-    public CommonResponse(T data) {
+    @JsonCreator
+    public CommonResponse(@JsonProperty(value = "data") T data) {
         this.data = data;
         isOk = true;
         errorCode = 0;
@@ -17,7 +21,9 @@ public class CommonResponse<T> {
         errors = null;
     }
 
-    public CommonResponse(int errorCode, String errorMassage){
+    @JsonCreator
+    public CommonResponse(@JsonProperty(value = "errorCode")int errorCode,
+                          @JsonProperty(value = "errorMassage") String errorMassage){
         data = null;
         isOk = false;
         this.errorCode = errorCode;
@@ -25,7 +31,9 @@ public class CommonResponse<T> {
         this.errors = null;
     }
 
-    public CommonResponse(int errorCode, String errorMassage, List<String> errors) {
+    public CommonResponse(@JsonProperty(value = "errorCode")int errorCode,
+                          @JsonProperty(value = "errorMassage") String errorMassage,
+                          @JsonProperty(value = "errors")List<String> errors) {
         this.errorCode = errorCode;
         this.errorMassage = errorMassage;
         this.errors = errors;

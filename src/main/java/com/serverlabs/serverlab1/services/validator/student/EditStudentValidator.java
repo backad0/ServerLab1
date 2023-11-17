@@ -13,21 +13,22 @@ public class EditStudentValidator implements IValidator<EditStudentRequest> {
     private ValidatorString stringV;
     private ValidatorId idV;
 
+    public EditStudentValidator() {
+        stringV = new ValidatorString();
+        idV = new ValidatorId();
+    }
+
     @Override
-    public List<String> validator(EditStudentRequest request){
+    public List<String> validator(EditStudentRequest request) {
         List<String> errors = new ArrayList<>();
 
-        idV.isNotNegative(request.getId(), errors, "id");
+        idV.isNotNegative(request.getStudent().getId(), errors, "id");
 
-        stringV.isNotNull(request.getName(), errors, "name");
-        stringV.isNotEmpty(request.getName(), errors, "name");
-        stringV.isNotOverflow(request.getName(), errors, "name", 255);
+        stringV.isNotNull(request.getStudent().getName(), errors, "name");
+        stringV.isNotEmpty(request.getStudent().getName(), errors, "name");
+        stringV.isNotOverflow(request.getStudent().getName(), errors, "name", 255);
 
-        idV.isNotNegative(request.getIdGroup(), errors, "groupId");
-
-        stringV.isNotNull(request.getStatus(), errors, "status");
-        stringV.isNotEmpty(request.getStatus(), errors, "status");
-        stringV.isNotOverflow(request.getStatus(), errors, "status", 255);
+        idV.isNotNegative(request.getStudent().getGroupId(), errors, "groupId");
 
         return errors;
     }

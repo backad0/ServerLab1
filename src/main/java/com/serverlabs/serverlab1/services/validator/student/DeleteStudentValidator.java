@@ -10,8 +10,12 @@ import java.util.List;
 public class DeleteStudentValidator implements IValidator<DeleteStudentRequest> {
     private ValidatorId idV;
 
+    public DeleteStudentValidator() {
+        idV = new ValidatorId();
+    }
+
     @Override
-    public List<String> validator(DeleteStudentRequest request){
+    public List<String> validator(DeleteStudentRequest request) {
         List<String> errors = new ArrayList<>();
 
         idV.isNotNegative(request.getId(), errors, "id");

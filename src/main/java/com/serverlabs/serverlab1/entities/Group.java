@@ -1,12 +1,16 @@
 package com.serverlabs.serverlab1.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Group {
     private long id;
     private String name;
 
-    public Group(long id, String name) {
+    @JsonCreator
+    public Group(@JsonProperty(value = "id")long id,@JsonProperty(value = "name") String name) {
         this.id = id;
         this.name = name;
     }
