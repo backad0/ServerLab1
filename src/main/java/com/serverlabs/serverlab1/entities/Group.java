@@ -3,9 +3,10 @@ package com.serverlabs.serverlab1.entities;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Group {
+public class Group implements Serializable {
     private long id;
     private String name;
 

@@ -1,17 +1,22 @@
 package com.serverlabs.serverlab1.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class StudentDB {
+public class StudentDB implements Serializable {
     private Long id;
     private String name;
     private Long groupId;
     private StudentStatus status;
 
     @JsonCreator
-    public StudentDB(Long id, String name, Long groupId, StudentStatus status) {
+    public StudentDB(@JsonProperty(value = "id")Long id,
+                     @JsonProperty(value = "name")String name,
+                     @JsonProperty(value = "groupId")Long groupId,
+                     @JsonProperty(value = "status")StudentStatus status) {
         this.id = id;
         this.name = name;
         this.groupId = groupId;

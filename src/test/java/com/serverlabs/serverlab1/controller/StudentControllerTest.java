@@ -1,21 +1,17 @@
 package com.serverlabs.serverlab1.controller;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.serverlabs.serverlab1.MainTest;
-import com.serverlabs.serverlab1.entities.Student;
 import com.serverlabs.serverlab1.entities.StudentDB;
 import com.serverlabs.serverlab1.entities.StudentStatus;
+import com.serverlabs.serverlab1.excepcions.ServerException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class StudentControllerTest extends MainTest {
@@ -26,42 +22,83 @@ public class StudentControllerTest extends MainTest {
     }};
 
     @Test
-    public void addStudentTest1() throws ServerException, JsonParseException {
+    public void addStudentTest1() throws IOException {
+        String json1;
+        try {
+            json1 = new JSONObject().put("name", "student3_1").put("idGroup", 1L)
+                    .put("status", StudentStatus.ACTIVE).toString();
+            assertEquals(201, new JSONObject(server.executeRequest(json1, "add student")).get("httpStatus"));
+        } catch (Exception e) {
+            throw new IOException(e.getMessage());
+        }
+    }
+
+    @Test
+    public void deleteStudentTest1() throws IOException {
         String json1;
         String json2;
         try {
             json1 = new JSONObject().put("name", "student3_1").put("idGroup", 1L)
                     .put("status", StudentStatus.ACTIVE).toString();
-
-            json2 = new JSONObject().put("id", 4L).toString();
+            long x = Long.decode(
+                    new JSONObject(server.executeRequest(json1, "add student"))
+                            .getJSONObject("body").getJSONObject("data").getString("idStudent")
+            );
+            json2 = new JSONObject().put("id", x).toString();
+            assertEquals(200,new JSONObject(server.executeRequest(json2, "delete student")).get("httpStatus"));
         } catch (Exception e) {
-            throw new JsonParseException(e.getMessage());
-        }
-        try {
-            assertEquals(201, new JSONObject(server.executeRequest(json1, "add student")).get("httpStatus"));
-            server.executeRequest(json2, "delete student");
-        } catch (Exception e) {
-            throw new ServerException(e.getMessage());
+            throw new IOException(e.getMessage());
         }
     }
 
     @Test
-    public void deleteStudentTest1() throws ServerException, JsonParseException {
-        String json1;
-        String json2;
+    public void editAndGetByIdStudentTest1() throws IOException {
+        String jsonAdd;
+        String jsonGet;
+        String jsonEdit;
+        String jsonDelete;
+
         try {
-            json1 = new JSONObject().put("id", 3L).toString();
-            json2 = new JSONObject().put("name", "student3_1").put("idGroup", 1L)
+            jsonAdd = new JSONObject().put("name", "StudentV1").put("idGroup", 1L)
                     .put("status", StudentStatus.ACTIVE).toString();
+            Long idStudent = Long.decode(
+                    new JSONObject(server.executeRequest(jsonAdd, "add student"))
+                            .getJSONObject("body").getJSONObject("data").getString("idStudent")
+            );
+            jsonGet = new JSONObject().put("id", idStudent).toString();
+            jsonEdit = new JSONObject().put("id", idStudent)
+                            .put("name", "StudentV2").put("idGroup", 1L).put("status", StudentStatus.ACTIVE)
+                            .toString();
+            assertEquals(200,new JSONObject(server.executeRequest(jsonEdit, "edit student")).get("httpStatus"));
+            assertEquals("StudentV2", new JSONObject(server.executeRequest(jsonGet, "get student by id"))
+                    .getJSONObject("body").getJSONObject("data").getJSONObject("student").getString("name"));
+            jsonDelete = new JSONObject().put("id", idStudent).toString();
+            server.executeRequest(jsonDelete, "delete student");
         } catch (Exception e) {
-            throw new JsonParseException(e.getMessage());
+            throw new IOException(e.getMessage());
         }
+    }
+
+    @Test
+    public void getByGroupIdTest() throws IOException {
+        String jsonGet;
         try {
-            server.executeRequest(json2, "add student");
-            assertNull(server.executeRequest(json1, "delete student"));
+            jsonGet = new JSONObject().put("id", 0L).toString();
+            long[] expectedArr = new long[]{0L, 1L};
+            System.out.println(server.executeRequest(jsonGet,"get students by group"));
+            assertEquals(200 ,Integer.decode(new JSONObject(server.executeRequest(jsonGet,"get students by group"))
+                    .getString("httpStatus")));
         } catch (Exception e) {
-            throw new ServerException(e.getMessage());
+            throw new IOException(e.getMessage());
         }
+    }
+
+    @Test
+    public void invalidEndpointTest() {
+        ServerException thrown = assertThrows(ServerException.class, () ->{
+           server.executeRequest(null, "");
+        });
+        assertEquals("No such endpoint", thrown.getMessage());
     }
 
 }

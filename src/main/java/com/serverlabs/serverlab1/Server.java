@@ -87,7 +87,7 @@ public class Server implements IServer {
                 } catch (Exception e) {
                     throw new ServerException(e.getMessage());
                 }
-            case ("get student by group"):
+            case ("get students by group"):
                 try {
                     ResponseEntity<CommonResponse<List<Student>>> res = studentController.
                             getStudentsByGroup(mapper.readValue(json, GetStudentsByGroupRequest.class));

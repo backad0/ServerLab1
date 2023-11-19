@@ -1,6 +1,12 @@
 package com.serverlabs.serverlab1.entities;
 
-public enum StudentStatus {
+import java.io.Serializable;
+
+public enum StudentStatus implements Serializable {
     ACTIVE,
-    VACATION
+    VACATION;
+
+    public String getStatus() {
+        return this.name();
+    }
 }
