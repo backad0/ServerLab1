@@ -1,6 +1,7 @@
 package com.serverlabs.serverlab1.excepcions;
 
 public class ServerException extends Exception{
+
     public ServerException(String massage){
         super(massage);
     }

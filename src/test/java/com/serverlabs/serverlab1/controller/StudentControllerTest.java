@@ -100,5 +100,4 @@ public class StudentControllerTest extends MainTest {
         });
         assertEquals("No such endpoint", thrown.getMessage());
     }
-
 }
